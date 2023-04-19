@@ -4,3 +4,5 @@ this will be filled out again once the project is complete; for now, can use it 
 - sorting algos 1 and 2
 - frontend development
 - fix/add formatted and full csv dataset
+- include a function to calculate the time it takes to process the data (for the final report)
+- finish the cleaned giant dataset for parsing our 200k datapoints
