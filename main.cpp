@@ -16,7 +16,7 @@ int main() {
     // sfml, pages in main?
 
     // Open an existing file
-    fstream file("new.csv", ios::in);
+    fstream file("temp.csv", ios::in);
 
     // storage units to use to read in information
     vector<string> row;
@@ -24,7 +24,7 @@ int main() {
 
     if(file.is_open()) {
         //while (getline(file, line)) {
-        for (int i = 0; i < 2; i++) { //num of rows to read
+        for (int i = 0; i < 20; i++) { //num of rows to read
             getline(file, line); //grab row
 
             row.clear();
@@ -47,9 +47,7 @@ int main() {
             getline(str,word,'"'); //get tags
             tags = word;
 
-            // current problem with this; splits it based off newline, there is going to be a , at the end of each tag
-            // see if possible for ariella to alter the .csv and remove the commas
-            // if not will have to create substrings to fix
+            //breaks the separate tags up by newline
             stringstream ss(tags);
             istream_iterator<string> begin(ss);
             istream_iterator<string> end;
@@ -74,12 +72,30 @@ int main() {
             for (int j = 0; j < totalTags.size(); j++) {
                 h.InsertRecipe(totalTags[j],currentRecipe);
             }
-
         }
     }
+
     // need to make main at end of the project cleaner; for now, to test, just insert the name of a tag here to print out
-    // remember that currently, commas will be at the end of the tag name
-    h.PrintRecipe("60-minutes-or-less,");
-    h.PrintRecipe("side-dishes,");
+
+    //example user input:
+    cout << "please input a tag from the following list! " << endl;
+    //then when user inputs something, call CheckTag to ensure it exists in the map
+    // if it does, proceed by printing
+    // if not, print "please try again!" and then loop back to the start
+    // after correct tag is inputted, display the menu
+    // then provide list of actions for the user to take afterwards
+    //1. Add another tag
+    //2. Search by ingredient
+    //3. Search by minutes
+    //4. Search by number of steps
+    //5. Display Results
+
+    //testing print here; not needed after project is done
+    //h.PrintRecipe("60-minutes-or-less");
+    //h.PrintRecipe("side-dishes,");
+    //h.PrintRecipe("vegetarian,");
+
+    // there will probably be a large amount of diff tags (100+); its impossible for the user to know all of them,
+    // so we can either provide a list of all possible tags (we can limit it to show like 20 at a time)
 
 }
