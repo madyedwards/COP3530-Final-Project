@@ -28,6 +28,8 @@ public:
     //print all recipes within a certain tag; if we do a website, we can print it per every 20 values, like how
     //a page in a website works
     void PrintRecipe(string tag);
+    //check if tag exists in the map
+    void CheckTag(string tag);
 
     // two sorting algos here to organize/print the recipes in the vectors of the tags associated
     // void sortingAlgo1
