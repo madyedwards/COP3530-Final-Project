@@ -16,7 +16,7 @@ int main() {
     // sfml, pages in main?
 
     // Open an existing file
-    fstream file("temp.csv", ios::in);
+    fstream file("fixed.csv", ios::in);
 
     // storage units to use to read in information
     vector<string> row;
@@ -24,6 +24,7 @@ int main() {
 
     if(file.is_open()) {
         //while (getline(file, line)) {
+        cout <<"here";
         for (int i = 0; i < 20; i++) { //num of rows to read
             getline(file, line); //grab row
 
@@ -75,27 +76,86 @@ int main() {
         }
     }
 
-    // need to make main at end of the project cleaner; for now, to test, just insert the name of a tag here to print out
-
-    //example user input:
-    cout << "please input a tag from the following list! " << endl;
-    //then when user inputs something, call CheckTag to ensure it exists in the map
-    // if it does, proceed by printing
-    // if not, print "please try again!" and then loop back to the start
-    // after correct tag is inputted, display the menu
-    // then provide list of actions for the user to take afterwards
-    //1. Add another tag
-    //2. Search by ingredient
-    //3. Search by minutes
-    //4. Search by number of steps
-    //5. Display Results
-
     //testing print here; not needed after project is done
-    //h.PrintRecipe("60-minutes-or-less");
+    h.PrintRecipe("60-minutes-or-less");
     //h.PrintRecipe("side-dishes,");
     //h.PrintRecipe("vegetarian,");
 
-    // there will probably be a large amount of diff tags (100+); its impossible for the user to know all of them,
-    // so we can either provide a list of all possible tags (we can limit it to show like 20 at a time)
+    // need to make main at end of the project cleaner; for now, to test, just insert the name of a tag here to print out
+
+    //example user input:
+    string tag;
+
+    cout << "Please input a tag from the following list: 60-minutes-or-less, side-dishes, mexican, easy, fall, holiday-event,vegetarian, winter, 30-minutes-or-less, "
+            "breakfast, main-dish, kid-friendly, 15-minutes-or-less, desserts, no-cook, indian, asian, north-american,"
+            "vegan, healthy, seafood, chicken, meat, salads" << endl;
+
+    cin >> tag;
+
+    //then when user inputs something, call CheckTag to ensure it exists in the map
+    // if it does, proceed by printing
+    // if not, print "please try again!" and then loop back to the start
+
+    int choice;
+    bool continue_looping = true;
+
+    string ingredients;
+    int minutes;
+    int steps;
+
+
+    while (continue_looping) {
+        // Display the menu options
+        cout << "Please select one of the following to continue:" << endl;
+        cout << "1. Add another tag" << endl;
+        cout << "2. Search by ingredient" << endl;
+        cout << "3. Search by minutes" << endl;
+        cout << "4. Search by number of steps" << endl;
+        cout << "5. Display Results" << endl;
+
+        // Get user input for their choice
+        cin >> choice;
+
+
+        switch (choice) {
+            case 1:
+                // Add another tag
+                cout << "Please input another tag:" << endl;
+                cin >> tag;
+                break;
+            case 2:
+                // Search by ingredient
+                cout << "Which ingredient would you like your recipes to include?" << endl;
+                cin >> ingredients;
+                // to do: implement this option
+                break;
+            case 3:
+                // Search by minutes
+                cout << "What is the maximum amount of minutes you want the recipes included to follow?" << endl;
+                cin >> minutes;
+                // to do: implement this option
+                break;
+            case 4:
+                // Search by number of steps
+                cout << "What is the maximum amount of steps you want the recipes included to follow?" << endl;
+                cin >> steps;
+                // to do: implement this option
+                break;
+            case 5:
+                // Display results
+                // to do: implement this option
+                break;
+            default:
+                // Invalid choice
+                cout << "Invalid choice. Please select a valid option." << endl;
+        }
+        char continue_choice;
+        cout << "Do you want to continue? (y/n)" << endl;
+        cin >> continue_choice;
+
+        if (continue_choice != 'y') {
+            continue_looping = false;
+        }
+    }
 
 }
