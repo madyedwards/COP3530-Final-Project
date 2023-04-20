@@ -30,6 +30,9 @@ public:
     void PrintRecipe(string tag);
     //check if tag exists in the map
     void CheckTag(string tag);
+    
+    void merge(int arr[], int left, int mid, int right);
+    void mergeSort (int arr[], int left, int right);
 
     // two sorting algos here to organize/print the recipes in the vectors of the tags associated
     // void sortingAlgo1
