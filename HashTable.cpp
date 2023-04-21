@@ -88,8 +88,4 @@ void HashTable::mergeSort(std::vector<Recipe>& arr, int left, int right) {
     }
 }
 
-// Sort the recipes in recipeStorage based on name
-for (auto& recipe : recipeStorage) {
-mergeSort(recipe.second, 0, recipe.second.size() - 1);
-}
 
