@@ -7,6 +7,8 @@ using namespace std;
 class HashTable {
 public:
     struct Recipe {
+        Recipe();
+
         string name;
         string n_steps;
         string minutes;
@@ -30,10 +32,8 @@ public:
     void PrintRecipe(string tag);
     //check if tag exists in the map
     void CheckTag(string tag);
-    
-    void merge(int arr[], int left, int mid, int right);
-    void mergeSort (int arr[], int left, int right);
-
+    void merge(vector<Recipe>& arr, int left, int mid, int right);
+    void mergeSort (vector<Recipe>& arr, int left, int right);
     // two sorting algos here to organize/print the recipes in the vectors of the tags associated
     // void sortingAlgo1
     // void sortingAlgo2
