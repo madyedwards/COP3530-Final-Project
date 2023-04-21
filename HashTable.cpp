@@ -12,6 +12,10 @@ HashTable::Recipe::Recipe(std::string name, string n_steps, string minutes, std:
 
 }
 
+HashTable::Recipe::Recipe() {
+
+}
+
 void HashTable::InsertRecipe(std::string tag, HashTable::Recipe currentRecipe) {
     recipeStorage[tag].push_back(currentRecipe);
 
@@ -38,27 +42,23 @@ void HashTable::CheckTag(std::string tag) {
 
 }
 
-void merge(int arr[], int left, int mid, int right) {
-    int n1 = mid - left +1;
+// Merge function for Recipe vectors
+void HashTable::merge(std::vector<Recipe>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
     int n2 = right - mid;
-    int X[n1], Y[n2];
+    vector<Recipe> X(n1), Y(n2);
 
     for (int i = 0; i < n1; i++)
         X[i] = arr[left + i];
     for (int j = 0; j < n2; j++)
         Y[j] = arr[mid + 1 + j];
 
-    int i, j, k;
-    i = 0;
-    j = 0;
-    k = left;
-
-    while (i < n1 && j < n2){
-        if (X[i] <= Y[j]) {
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (X[i].name <= Y[j].name) {
             arr[k] = X[i];
             i++;
-        }
-        else {
+        } else {
             arr[k] = Y[j];
             j++;
         }
@@ -70,6 +70,7 @@ void merge(int arr[], int left, int mid, int right) {
         i++;
         k++;
     }
+
     while (j < n2) {
         arr[k] = Y[j];
         j++;
@@ -77,12 +78,18 @@ void merge(int arr[], int left, int mid, int right) {
     }
 }
 
-void mergeSort (int arr[], int left, int right) {
+// Merge sort function for Recipe vectors
+void HashTable::mergeSort(std::vector<Recipe>& arr, int left, int right) {
     if (left < right) {
-        int mid = left + (right - left) /2;
+        int mid = left + (right - left) / 2;
         mergeSort(arr, left, mid);
-        mergeSort(arr, mid+1, right);
-
+        mergeSort(arr, mid + 1, right);
         merge(arr, left, mid, right);
     }
 }
+
+// Sort the recipes in recipeStorage based on name
+for (auto& recipe : recipeStorage) {
+mergeSort(recipe.second, 0, recipe.second.size() - 1);
+}
+
