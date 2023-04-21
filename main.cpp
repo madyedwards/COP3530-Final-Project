@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <iterator>
+#include <chrono>
 #include "HashTable.h"
 using namespace std;
 
@@ -103,6 +104,8 @@ int main() {
     int minutes;
     int steps;
 
+    vector<HashTable::Recipe> temp; //functions will push back to this temp
+
 
     while (continue_looping) {
         // Display the menu options
@@ -122,6 +125,7 @@ int main() {
                 // Add another tag
                 cout << "Please input another tag:" << endl;
                 cin >> tag;
+                // to do: implement this option
                 break;
             case 2:
                 // Search by ingredient
@@ -143,7 +147,24 @@ int main() {
                 break;
             case 5:
                 // Display results
+                // Sort the recipes in recipeStorage based on name
                 // to do: implement this option
+                vector<HashTable::Recipe> test2 = temp;
+                auto start = chrono::high_resolution_clock::now();
+
+                // Sort the recipes in recipeStorage based on name
+                for (auto& recipe : temp) {
+                    h.mergeSort(temp, 0, temp.size() - 1);
+                }
+
+                auto end = chrono::high_resolution_clock::now();
+                chrono::duration<double> elapsed_seconds = end - start;
+                double time = elapsed_seconds.count();
+
+                // same thing for quick sort on test2
+                //if statement comparing the time for each sorting algorithm
+                //call print function on whichever is faster on the vector
+
                 break;
             default:
                 // Invalid choice
@@ -159,3 +180,4 @@ int main() {
     }
 
 }
+
