@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 class HashTable {
@@ -26,7 +27,7 @@ public:
     void InsertRecipe(string tag, Recipe currentRecipe);
     //int HashFunction(string tag);
     //print all recipes without filtering a map; uhhh super extreme, prob wont do this
-    void PrintAll();
+    void PrintResult(vector<Recipe> &arr);
     //print all recipes within a certain tag; if we do a website, we can print it per every 20 values, like how
     //a page in a website works
     void PrintRecipe(string tag);
@@ -34,8 +35,12 @@ public:
     void CheckTag(string tag);
     void merge(vector<Recipe>& arr, int left, int mid, int right);
     void mergeSort (vector<Recipe>& arr, int left, int right);
-    // two sorting algos here to organize/print the recipes in the vectors of the tags associated
-    // void sortingAlgo1
-    // void sortingAlgo2
+    vector<HashTable::Recipe> SearchByIngredient(const string& tag, const string& ingredient);
+    vector<HashTable::Recipe> SearchByMinutes(const string& tag, const int& minutes);
+    vector<HashTable::Recipe> SearchBySteps(const string& tag, const int& steps);
+    vector<HashTable::Recipe> GetRecipes(string tag);
+    void quickSort(vector<Recipe>& arr, int low, int high);
+    int partition(vector<Recipe>& arr, int low, int high);
+
 
 };
