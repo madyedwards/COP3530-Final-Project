@@ -25,7 +25,6 @@ int main() {
 
     if(file.is_open()) {
         //while (getline(file, line)) {
-        cout <<"here";
         for (int i = 0; i < 20; i++) { //num of rows to read
             getline(file, line); //grab row
 
@@ -77,10 +76,6 @@ int main() {
         }
     }
 
-    //testing print here; not needed after project is done
-    h.PrintRecipe("60-minutes-or-less");
-    //h.PrintRecipe("side-dishes,");
-    //h.PrintRecipe("vegetarian,");
 
     // need to make main at end of the project cleaner; for now, to test, just insert the name of a tag here to print out
 
@@ -92,13 +87,10 @@ int main() {
             "vegan, healthy, seafood, chicken, meat, salads" << endl;
 
     cin >> tag;
+    h.GetRecipes(tag);
 
-    //then when user inputs something, call CheckTag to ensure it exists in the map
-    // if it does, proceed by printing
-    // if not, print "please try again!" and then loop back to the start
 
     int choice;
-    bool continue_looping = true;
 
     string ingredients;
     int minutes;
@@ -107,77 +99,90 @@ int main() {
     vector<HashTable::Recipe> temp; //functions will push back to this temp
 
 
-    while (continue_looping) {
-        // Display the menu options
-        cout << "Please select one of the following to continue:" << endl;
-        cout << "1. Add another tag" << endl;
-        cout << "2. Search by ingredient" << endl;
-        cout << "3. Search by minutes" << endl;
-        cout << "4. Search by number of steps" << endl;
-        cout << "5. Display Results" << endl;
+    // Display the menu options
+    cout << "Please select one of the following to continue:" << endl;
+    cout << "1. Search by ingredient" << endl;
+    cout << "2. Search by minutes" << endl;
+    cout << "3. Search by number of steps" << endl;
 
-        // Get user input for their choice
-        cin >> choice;
+    // Get user input for their choice
+    cin >> choice;
 
 
-        switch (choice) {
-            case 1:
-                // Add another tag
-                cout << "Please input another tag:" << endl;
-                cin >> tag;
-                // to do: implement this option
-                break;
-            case 2:
-                // Search by ingredient
-                cout << "Which ingredient would you like your recipes to include?" << endl;
-                cin >> ingredients;
-                // to do: implement this option
-                break;
-            case 3:
-                // Search by minutes
-                cout << "What is the maximum amount of minutes you want the recipes included to follow?" << endl;
-                cin >> minutes;
-                // to do: implement this option
-                break;
-            case 4:
-                // Search by number of steps
-                cout << "What is the maximum amount of steps you want the recipes included to follow?" << endl;
-                cin >> steps;
-                // to do: implement this option
-                break;
-            case 5:
-                // Display results
-                // Sort the recipes in recipeStorage based on name
-                // to do: implement this option
-                vector<HashTable::Recipe> test2 = temp;
-                auto start = chrono::high_resolution_clock::now();
+    switch (choice) {
+        case 1:
+            // Search by ingredient
+            cout << "Which ingredient would you like your recipes to include?" << endl;
+            cin >> ingredients;
 
-                // Sort the recipes in recipeStorage based on name
-                for (auto& recipe : temp) {
-                    h.mergeSort(temp, 0, temp.size() - 1);
-                }
+            // get the recipes associated with the initial tag that include the specified ingredient
+            temp = h.SearchByIngredient(tag, ingredients);
 
-                auto end = chrono::high_resolution_clock::now();
-                chrono::duration<double> elapsed_seconds = end - start;
-                double time = elapsed_seconds.count();
+            break;
 
-                // same thing for quick sort on test2
-                //if statement comparing the time for each sorting algorithm
-                //call print function on whichever is faster on the vector
+        case 2:
+            // Search by minutes
+            cout << "What is the maximum number of minutes the recipes should take?" << endl;
+            cin >> minutes;
 
-                break;
-            default:
-                // Invalid choice
-                cout << "Invalid choice. Please select a valid option." << endl;
+            temp.clear(); // clear the temporary vector
+            temp = h.SearchByMinutes(tag, minutes);
+
+
+            break;
+
+        case 3:
+            // Search by number of steps
+            cout << "What is the maximum number of steps the recipes should have?" << endl;
+            cin >> steps;
+
+            temp.clear(); // clear the temporary vector
+            temp = h.SearchBySteps(tag, steps);
+
+            break;
         }
-        char continue_choice;
-        cout << "Do you want to continue? (y/n)" << endl;
-        cin >> continue_choice;
 
-        if (continue_choice != 'y') {
-            continue_looping = false;
+        // Display result
+        vector<HashTable::Recipe> testMerge = temp;
+        vector<HashTable::Recipe> testQuick = temp;
+
+        auto start = chrono::high_resolution_clock::now();
+
+        // call mergeSort
+        for (auto& recipe : testMerge) {
+            h.mergeSort(testMerge, 0, testMerge.size() - 1);
         }
+
+
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsed_seconds = end - start;
+        double timeMerge = elapsed_seconds.count();
+
+        auto start2 = chrono::high_resolution_clock::now();
+
+        // call mergeSort
+        for (auto& recipe : testQuick) {
+            h.quickSort(testQuick, 0, testQuick.size()-1);
+        }
+
+        auto end2 = chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsed_seconds2 = end2 - start2;
+        double timeQuick = elapsed_seconds2.count();
+
+        if (timeMerge < timeQuick) {
+            h.PrintResult(testMerge);
+            cout << "MERGE" << endl;
+        }
+        else {
+            h.PrintResult(testQuick);
+            cout << "QUICK" << endl;
+        }
+
+        cout << "timeMerge: " << timeMerge << endl;
+        cout << "timeQuick: " << timeQuick << endl;
+
+        //ask abt time complexity and does a vector work
     }
 
-}
+
 
