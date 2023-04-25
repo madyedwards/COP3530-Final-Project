@@ -21,19 +21,19 @@ void HashTable::InsertRecipe(std::string tag, HashTable::Recipe currentRecipe) {
     recipeStorage[tag].push_back(currentRecipe);
 
 }
-void HashTable::PrintRecipe(string tag) {
-    cout << "recipes in " << tag <<":" << endl;
-
-    for (auto iter = recipeStorage[tag].begin(); iter != recipeStorage[tag].end(); ++iter) {
-
-        cout << "name: " << iter->name << endl;
-        cout << "duration: " << iter->minutes << " minutes" << endl;
-        cout << "number of steps: " << iter->n_steps << endl;
-        cout << "ingredients needed: " << iter->ingredients << endl;
-        cout << "steps: " << iter->steps << endl;
-
-    }
-}
+//void HashTable::PrintRecipe(string tag) {
+//    cout << "recipes in " << tag <<":" << endl;
+//
+//    for (auto iter = recipeStorage[tag].begin(); iter != recipeStorage[tag].end(); ++iter) {
+//
+//        cout << "name: " << iter->name << endl;
+//        cout << "duration: " << iter->minutes << " minutes" << endl;
+//        cout << "number of steps: " << iter->n_steps << endl;
+//        cout << "ingredients needed: " << iter->ingredients << endl;
+//        cout << "steps: " << iter->steps << endl;
+//
+//    }
+//}
 
 
 // Merge function for Recipe vectors
@@ -82,18 +82,6 @@ void HashTable::mergeSort(std::vector<Recipe>& arr, int left, int right) {
         merge(arr, left, mid, right);
     }
 }
-
-
-void HashTable::CheckTag(std::string tag) {
-    for (auto iter = recipeStorage.begin(); iter != recipeStorage.end(); ++iter) {
-        if (recipeStorage.find(tag) == recipeStorage.end() ){
-
-            cout << "tag not found! please try again. " << endl;
-        }
-    }
-
-}
-
 void HashTable::quickSort(vector<Recipe>& arr, int low, int high) {
     if (low < high) {
         int pivot = partition(arr, low, high);
@@ -127,7 +115,15 @@ int HashTable::partition(vector<Recipe>& vec, int low, int high) {
 }
 
 
-
+//void HashTable::CheckTag(std::string tag) {
+//    for (auto iter = recipeStorage.begin(); iter != recipeStorage.end(); ++iter) {
+//        if (recipeStorage.find(tag) == recipeStorage.end() ){
+//
+//            cout << "tag not found! please try again. " << endl;
+//        }
+//    }
+//
+//}
 
 vector<HashTable::Recipe> HashTable::GetRecipes(string tag) {
     // Check if tag exists in recipeStorage
@@ -174,7 +170,7 @@ vector<HashTable::Recipe> HashTable::SearchBySteps(const string& tag, const int&
     if (it != recipeStorage.end()) {
         vector<Recipe>& recipes = it->second;
         for (Recipe& r : recipes) {
-            if (stoi(r.n_steps) == steps) {
+            if (stoi(r.n_steps) <= steps) {
                 temp.push_back(r);
             }
         }
@@ -185,7 +181,7 @@ vector<HashTable::Recipe> HashTable::SearchBySteps(const string& tag, const int&
 void HashTable::PrintResult(vector<Recipe> &arr) {
     for (int i = 0; i < arr.size(); i++) {
         cout << "Recipe Name: " << arr[i].name << endl;
-        cout << "Recipe Duration: " << arr[i].minutes << endl;
+        cout << "Recipe Duration: " << arr[i].minutes << " minutes" << endl;
         cout << "Number of Steps: " << arr[i].n_steps << endl;
         cout << "Ingredients in Recipe: " << arr[i].ingredients << endl;
         cout << "Steps: " << arr[i].steps << endl;
