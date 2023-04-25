@@ -14,18 +14,15 @@ int main() {
     // technically this is an unordered map, not a hashtable; changed it after making the file
     HashTable h;
 
-    // sfml, pages in main?
-
     // Open an existing file
-    fstream file("fixed.csv", ios::in);
+    fstream file("FINAL_DATA.csv", ios::in);
 
     // storage units to use to read in information
     vector<string> row;
     string line, word;
 
     if(file.is_open()) {
-        //while (getline(file, line)) {
-        for (int i = 0; i < 20; i++) { //num of rows to read
+        for (int i = 0; i < 200000; i++) { //num of rows to read
             getline(file, line); //grab row
 
             row.clear();
@@ -75,16 +72,12 @@ int main() {
             }
         }
     }
-
-
-    // need to make main at end of the project cleaner; for now, to test, just insert the name of a tag here to print out
-
-    //example user input:
+    
     string tag;
 
-    cout << "Please input a tag from the following list: 60-minutes-or-less, side-dishes, mexican, easy, fall, holiday-event,vegetarian, winter, 30-minutes-or-less, "
-            "breakfast, main-dish, kid-friendly, 15-minutes-or-less, desserts, no-cook, indian, asian, north-american,"
-            "vegan, healthy, seafood, chicken, meat, salads" << endl;
+    cout << "Please input a tag from the following list: " << endl;
+    cout << "60-minutes-or-less, side-dishes, mexican, easy, fall, holiday-event,vegetarian, winter, 30-minutes-or-less, breakfast, main-dish," << endl;
+    cout << "kid-friendly, 15-minutes-or-less, desserts, no-cook, indian, asian, north-american, vegan, healthy, seafood, chicken, meat, salads" << endl;
 
     cin >> tag;
     h.GetRecipes(tag);
@@ -145,7 +138,7 @@ int main() {
         // Display result
         vector<HashTable::Recipe> testMerge = temp;
         vector<HashTable::Recipe> testQuick = temp;
-
+// FIRST ALGORITHM HERE
         auto start = chrono::high_resolution_clock::now();
 
         // call mergeSort
@@ -158,6 +151,7 @@ int main() {
         chrono::duration<double> elapsed_seconds = end - start;
         double timeMerge = elapsed_seconds.count();
 
+//SECOND ALGORITHM HERE
         auto start2 = chrono::high_resolution_clock::now();
 
         // call mergeSort
@@ -169,6 +163,7 @@ int main() {
         chrono::duration<double> elapsed_seconds2 = end2 - start2;
         double timeQuick = elapsed_seconds2.count();
 
+        //COMPARISON HERE
         if (timeMerge < timeQuick) {
             h.PrintResult(testMerge);
             cout << "MERGE" << endl;
@@ -181,8 +176,4 @@ int main() {
         cout << "timeMerge: " << timeMerge << endl;
         cout << "timeQuick: " << timeQuick << endl;
 
-        //ask abt time complexity and does a vector work
     }
-
-
-
