@@ -114,7 +114,7 @@ int HashTable::partition(vector<Recipe>& vec, int low, int high) {
     return down;
 }
 
-
+//unsused
 //void HashTable::CheckTag(std::string tag) {
 //    for (auto iter = recipeStorage.begin(); iter != recipeStorage.end(); ++iter) {
 //        if (recipeStorage.find(tag) == recipeStorage.end() ){
